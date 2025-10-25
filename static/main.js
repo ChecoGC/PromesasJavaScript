@@ -140,13 +140,13 @@ const addTodo = async (url, payload) => {
       credentials: "same-origin",
       headers: {
         "X-Requested-With": "XMLHttpRequest",
-        // "X-CSRFToken": getCookie("csrftoken"),
+        // DESCOMENTAR ESTA LÍNEA:
+        "X-CSRFToken": getCookie("csrftoken"), 
       },
       body: JSON.stringify({
         payload: payload
       })
     });
-
     const data = await response.json();
     console.log(data);
   } catch (error) {
@@ -210,7 +210,7 @@ function deleteTodo(url) {
   });
 }*/
 
-// Funcion actulizada utilizando async y await
+// Funcion actulizada  
 const deleteTodo = async (url) => {
   try {
     const response = await fetch(url, {

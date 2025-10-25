@@ -91,7 +91,7 @@
       //getAllTodosWithAsync(allTodosUrl);
       operationGetAllTodos(allTodosUrl);
     });
-
+     
     // POST
     const addTodoForm = document.getElementById("addTodoForm");
     addTodoForm.addEventListener("submit", (e) => {
@@ -119,6 +119,7 @@
 
       const todoId = updateTodoForm.elements["todoIdPut"].value;
       const singleTodoUrl = `/todos/${todoId}/`;
+      // Se llama a la función refactorizada con async/await
       updateTodo(singleTodoUrl, formData);
       updateTodoForm.reset();
     });
@@ -131,6 +132,7 @@
 
       const todoId = deleteTodoForm.elements["todoIdDelete"].value;
       const singleTodoUrl = `/todos/${todoId}/`;
+      // Se llama a la función refactorizada con async/await
       deleteTodo(singleTodoUrl);
       deleteTodoForm.reset();
     });
