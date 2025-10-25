@@ -41,7 +41,7 @@ function getAllTodos(url) {
 }
 */
 
-// Funcion cambiada utilizando async y await
+// Funcion actulizada utilizando async y await
 const getAllTodos = async (url) => {
   try {
     const response = await fetch(url, {
@@ -69,6 +69,7 @@ const getAllTodos = async (url) => {
 };
 
 
+  /*
   const operationGetAllTodos = async (url) => {
        r = await fetch(url, {
         headers: {
@@ -89,9 +90,33 @@ const getAllTodos = async (url) => {
         </li>`
         todoList.innerHTML += todoHTMLElement;
     });
+};*/
+
+// Funcion actulizada utilizando async y await
+const operationGetAllTodos = async (url) => {
+  r = await fetch(url, {
+    headers: {
+      "X-Requested-With": "XMLHttpRequest",
+    }
+  })
+
+  dt = await r.json();
+
+  const todoList = document.getElementById("todoList");
+  todoList.innerHTML = "";
+
+  (dt.context).forEach(todo => {
+    const todoHTMLElement = `
+        <li>
+          <p>Task: ${todo.task}</p>
+          <p>Completed?: ${todo.completed}</p>
+        </li>`
+    todoList.innerHTML += todoHTMLElement;
+  });
 };
 
 
+/*
 function addTodo(url, payload) {
   fetch(url, {
     method: "POST",
@@ -106,9 +131,30 @@ function addTodo(url, payload) {
   .then(data => {
     console.log(data);
   });
-}
+}*/
+// Funcion actulizada utilizando async y await
+const addTodo = async (url, payload) => {
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      credentials: "same-origin",
+      headers: {
+        "X-Requested-With": "XMLHttpRequest",
+        // "X-CSRFToken": getCookie("csrftoken"),
+      },
+      body: JSON.stringify({
+        payload: payload
+      })
+    });
 
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error("Error adding todo:", error);
+  }
+};
 
+/*
 function updateTodo(url, payload) {
   fetch(url, {
     method: "PUT",
@@ -124,8 +170,31 @@ function updateTodo(url, payload) {
     console.log(data);
   });
 }
+*/
 
+// Funcion actulizada utilizando async y await
+const updateTodo = async (url, payload) => {
+  try {
+    const response = await fetch(url, {
+      method: "PUT",
+      credentials: "same-origin",
+      headers: {
+        "X-Requested-With": "XMLHttpRequest",
+        "X-CSRFToken": getCookie("csrftoken"),
+      },
+      body: JSON.stringify({
+        payload: payload
+      })
+    });
 
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error("Error updating todo:", error);
+  }
+};
+
+/*
 function deleteTodo(url) {
   fetch(url, {
     method: "DELETE",
@@ -139,4 +208,23 @@ function deleteTodo(url) {
   .then(data => {
     console.log(data);
   });
-}
+}*/
+
+// Funcion actulizada utilizando async y await
+const deleteTodo = async (url) => {
+  try {
+    const response = await fetch(url, {
+      method: "DELETE",
+      credentials: "same-origin",
+      headers: {
+        "X-Requested-With": "XMLHttpRequest",
+        "X-CSRFToken": getCookie("csrftoken"),
+      }
+    });
+
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error("Error deleting todo:", error);
+  }
+};
